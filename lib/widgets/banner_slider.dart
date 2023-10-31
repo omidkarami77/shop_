@@ -19,7 +19,7 @@ class BannerSlider extends StatelessWidget {
             itemCount: 3,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12),
+                padding: EdgeInsets.only(left: 12, right: 12),
                 child: Container(
                   height: 200,
                   color: Colors.blueAccent,
@@ -33,7 +33,7 @@ class BannerSlider extends StatelessWidget {
           child: SmoothPageIndicator(
             controller: controller,
             count: 3,
-            effect: const ExpandingDotsEffect(
+            effect: ExpandingDotsEffect(
               expansionFactor: 5,
               dotHeight: 10,
               dotWidth: 10,

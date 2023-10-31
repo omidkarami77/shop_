@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_/constants/colors.dart';
+import 'package:shop_/widgets/banner_slider.dart';
+import 'package:shop_/widgets/product_item.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,134 +17,119 @@ class MyApp extends StatelessWidget {
         backgroundColor: ColorApp.backgroundScreenColor,
         body: SafeArea(
             child: Center(
-          child: Container(
-            height: 216,
-            width: 160,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
+                child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: BannerSlider(),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  const Text(
+                    "دسته بندی",
+                    style: TextStyle(
+                        fontFamily: "SB", fontSize: 12, color: ColorApp.grey),
+                  ),
+                ]),
               ),
             ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 44),
+                child: SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return CategoryHorizontalItemLIst();
+                    },
+                  ),
                 ),
-                Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Expanded(child: Container()),
-                    Image.asset("assets/images/iphone.png"),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: Image.asset(
-                              "assets/images/active_fav_product.png")),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 5,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            )),
-                        child: const Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          child: Text(
-                            "%3",
-                            style: TextStyle(
-                                fontFamily: "SB",
-                                fontSize: 12,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text(
-                      "آيفون 13 پرو مكس",
-                      style: TextStyle(fontFamily: "SM", fontSize: 14),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: 53,
-                      decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: ColorApp.blue,
-                              blurRadius: 25,
-                              spreadRadius: -12,
-                              offset: Offset(0.0, 15))
-                        ],
-                        color: ColorApp.blue,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(15),
-                          bottomRight: Radius.circular(15),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(mainAxisSize: MainAxisSize.max, children: [
-                          Text(
-                            "تومان",
-                            style: TextStyle(
-                                fontFamily: "SM",
-                                fontSize: 12,
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "49.800.000",
-                                style: TextStyle(
-                                    fontFamily: "SM",
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.lineThrough),
-                              ),
-                              Text(
-                                "48.800.000",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: "SM",
-                                    fontSize: 16),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: Image.asset(
-                                  "assets/images/icon_right_arrow_cricle.png"))
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        )),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
+                child: Row(children: [
+                  Image.asset("assets/images/icon_left_categroy.png"),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "مشاده همه ",
+                    style: TextStyle(
+                        fontFamily: "SB", fontSize: 12, color: ColorApp.blue),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "پر فروش ترین ها",
+                    style: TextStyle(
+                        fontFamily: "SB", fontSize: 12, color: ColorApp.grey),
+                  ),
+                ]),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 44),
+                child: SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                      itemCount: 10,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: ProductItem(),
+                        );
+                      }),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 44, right: 44, bottom: 20, top: 32),
+                child: Row(children: [
+                  Image.asset("assets/images/icon_left_categroy.png"),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "مشاده همه ",
+                    style: TextStyle(
+                        fontFamily: "SB", fontSize: 12, color: ColorApp.blue),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "پر بازدید ترین ها",
+                    style: TextStyle(
+                        fontFamily: "SB", fontSize: 12, color: ColorApp.grey),
+                  ),
+                ]),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 44),
+                child: SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                      itemCount: 10,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: ProductItem(),
+                        );
+                      }),
+                ),
+              ),
+            )
+          ],
+        ))),
       ),
     );
   }
@@ -198,7 +185,7 @@ class CategoryHorizontalItemLIst extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
           "همه",
           style: TextStyle(fontFamily: 'SB', fontSize: 12),
         )
