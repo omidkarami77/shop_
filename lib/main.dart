@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = TextEditingController();
     return MaterialApp(
       home: Scaffold(
         backgroundColor: ColorApp.backgroundScreenColor,
@@ -20,11 +21,61 @@ class MyApp extends StatelessWidget {
                 child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
+              child: Padding(
+                padding:
+                    EdgeInsets.only(left: 44, right: 44, bottom: 32, top: 15),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  height: 46,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Image.asset("assets/images/icon_apple_blue.png"),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          maxLines: 1,
+                          textAlign: TextAlign.end,
+                          controller: controller,
+                          decoration: InputDecoration(
+                              //prefixIcon: Icon(Icons.people), //you can use prefixIcon property too.
+                              hintText: "جستجوی محصولات"
+                              //icon at tail of input
+                              ),
+                          style: TextStyle(
+                              fontFamily: "SB",
+                              fontSize: 16,
+                              color: Colors.grey),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 15),
+                        child: Image.asset("assets/images/icon_search.png"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
               child: BannerSlider(),
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
+                padding: const EdgeInsets.only(
+                    top: 32, left: 44, right: 44, bottom: 20),
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   const Text(
                     "دسته بندی",
