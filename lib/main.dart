@@ -5,6 +5,7 @@ import 'package:shop_/constants/colors.dart';
 import 'package:shop_/screens/category_screen.dart';
 import 'package:shop_/screens/home_screen.dart';
 import 'package:shop_/screens/product_list_screen.dart';
+import 'package:shop_/screens/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -127,7 +128,7 @@ class _MyAppState extends State<MyApp> {
 
 List<Widget> getScreen() {
   return <Widget>[
-    CategoryScreen(),
+    ProfileScreen(),
     ProductListScreen(),
     CategoryScreen(),
     HomeScreen(),
