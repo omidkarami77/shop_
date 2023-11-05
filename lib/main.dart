@@ -1,189 +1,137 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:shop_/constants/colors.dart';
-import 'package:shop_/widgets/banner_slider.dart';
-import 'package:shop_/widgets/product_item.dart';
+import 'package:shop_/screens/category_screen.dart';
+import 'package:shop_/screens/home_screen.dart';
+import 'package:shop_/screens/product_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int selectedBottomNavigationIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    var controller = TextEditingController();
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: ColorApp.backgroundScreenColor,
-        body: SafeArea(
-            child: Center(
-                child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    EdgeInsets.only(left: 44, right: 44, bottom: 32, top: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+          appBar: AppBar(),
+          bottomNavigationBar: ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 50,
+                sigmaY: 50,
+              ),
+              child: BottomNavigationBar(
+                onTap: (index) {
+                  setState(() {
+                    selectedBottomNavigationIndex = index;
+                  });
+                },
+                selectedLabelStyle: const TextStyle(
+                  fontFamily: 'sb',
+                  fontSize: 10,
+                  color: ColorApp.blue,
+                ),
+                unselectedLabelStyle: const TextStyle(
+                  fontFamily: 'sb',
+                  fontSize: 10,
+                  color: Colors.black,
+                ),
+                backgroundColor: Colors.transparent,
+                type: BottomNavigationBarType.fixed,
+                currentIndex: selectedBottomNavigationIndex,
+                elevation: 0,
+                items: [
+                  BottomNavigationBarItem(
+                      icon: Image.asset("assets/images/icon_profile.png"),
+                      label: 'حساب کاربری',
+                      activeIcon: Container(
+                        child: Image.asset(
+                            "assets/images/icon_profile_active.png"),
+                        decoration: const BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: ColorApp.blue,
+                              blurRadius: 20,
+                              spreadRadius: -7,
+                              offset: Offset(0.0, 13)),
+                        ]),
+                      )),
+                  BottomNavigationBarItem(
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Container(
+                        child:
+                            Image.asset("assets/images/icon_basket_active.png"),
+                        decoration: const BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: ColorApp.blue,
+                              blurRadius: 20,
+                              spreadRadius: -7,
+                              offset: Offset(0.0, 13)),
+                        ]),
+                      ),
                     ),
+                    label: 'سبد خرید',
+                    icon: Image.asset("assets/images/icon_basket.png"),
                   ),
-                  height: 46,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Image.asset("assets/images/icon_apple_blue.png"),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        child: TextField(
-                          maxLines: 1,
-                          textAlign: TextAlign.end,
-                          controller: controller,
-                          decoration: InputDecoration(
-                              //prefixIcon: Icon(Icons.people), //you can use prefixIcon property too.
-                              hintText: "جستجوی محصولات"
-                              //icon at tail of input
-                              ),
-                          style: TextStyle(
-                              fontFamily: "SB",
-                              fontSize: 16,
-                              color: Colors.grey),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 15),
-                        child: Image.asset("assets/images/icon_search.png"),
-                      ),
-                    ],
+                  BottomNavigationBarItem(
+                    activeIcon: Container(
+                      child:
+                          Image.asset("assets/images/icon_category_active.png"),
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: ColorApp.blue,
+                            blurRadius: 20,
+                            spreadRadius: -7,
+                            offset: Offset(0.0, 13)),
+                      ]),
+                    ),
+                    label: 'دسته بندی',
+                    icon: Image.asset("assets/images/icon_category.png"),
                   ),
-                ),
+                  BottomNavigationBarItem(
+                    activeIcon: Container(
+                      child: Image.asset("assets/images/icon_home_active.png"),
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: ColorApp.blue,
+                            blurRadius: 20,
+                            spreadRadius: -7,
+                            offset: Offset(0.0, 13)),
+                      ]),
+                    ),
+                    label: 'خانه',
+                    icon: Image.asset("assets/images/icon_home.png"),
+                  ),
+                ],
               ),
             ),
-            SliverToBoxAdapter(
-              child: BannerSlider(),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 32, left: 44, right: 44, bottom: 20),
-                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  const Text(
-                    "دسته بندی",
-                    style: TextStyle(
-                        fontFamily: "SB", fontSize: 12, color: ColorApp.grey),
-                  ),
-                ]),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 44),
-                child: SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return CategoryHorizontalItemLIst();
-                    },
-                  ),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
-                child: Row(children: [
-                  Image.asset("assets/images/icon_left_categroy.png"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "مشاده همه ",
-                    style: TextStyle(
-                        fontFamily: "SB", fontSize: 12, color: ColorApp.blue),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "پر فروش ترین ها",
-                    style: TextStyle(
-                        fontFamily: "SB", fontSize: 12, color: ColorApp.grey),
-                  ),
-                ]),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 44),
-                child: SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: ProductItem(),
-                        );
-                      }),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 44, right: 44, bottom: 20, top: 32),
-                child: Row(children: [
-                  Image.asset("assets/images/icon_left_categroy.png"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "مشاده همه ",
-                    style: TextStyle(
-                        fontFamily: "SB", fontSize: 12, color: ColorApp.blue),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "پر بازدید ترین ها",
-                    style: TextStyle(
-                        fontFamily: "SB", fontSize: 12, color: ColorApp.grey),
-                  ),
-                ]),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 44),
-                child: SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: ProductItem(),
-                        );
-                      }),
-                ),
-              ),
-            )
-          ],
-        ))),
-      ),
+          ),
+          body: IndexedStack(
+            index: selectedBottomNavigationIndex,
+            children: getScreen(),
+          )),
     );
   }
+}
+
+List<Widget> getScreen() {
+  return <Widget>[
+    CategoryScreen(),
+    ProductListScreen(),
+    CategoryScreen(),
+    HomeScreen(),
+  ];
 }
 
 //  Padding(
@@ -198,49 +146,3 @@ class MyApp extends StatelessWidget {
 //                   );
 //                 }),
 //           ),
-class CategoryHorizontalItemLIst extends StatelessWidget {
-  const CategoryHorizontalItemLIst({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              decoration: ShapeDecoration(
-                color: Colors.amber,
-                shadows: const [
-                  BoxShadow(
-                      color: Colors.amber,
-                      blurRadius: 25,
-                      spreadRadius: -15,
-                      offset: Offset(0.0, 16)),
-                ],
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-            ),
-            const Icon(
-              Icons.mouse,
-              size: 32,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          "همه",
-          style: TextStyle(fontFamily: 'SB', fontSize: 12),
-        )
-      ],
-    );
-  }
-}

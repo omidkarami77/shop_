@@ -111,7 +111,7 @@ class ProductItem extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "SM",
-                              fontSize: 16),
+                              fontSize: 14),
                         ),
                       ],
                     ),
