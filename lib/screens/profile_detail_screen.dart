@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:shop_/constants/colors.dart';
 
@@ -525,6 +527,173 @@ class ProfileDetailScreen extends StatelessWidget {
                         ]),
                   ),
                 ]),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                PriceTagButton(),
+                SizedBox(
+                  width: 20,
+                ),
+                AddToBasketButton(),
+              ]),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddToBasketButton extends StatelessWidget {
+  const AddToBasketButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, bottom: 32),
+      child: SizedBox(
+        width: 160,
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Container(
+              height: 60,
+              width: 130,
+              decoration: BoxDecoration(
+                color: ColorApp.blue,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    height: 53,
+                    width: 150,
+                    child: Center(
+                      child: Text(
+                        "افزودن به سبد خرید",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "SB",
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PriceTagButton extends StatelessWidget {
+  const PriceTagButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, bottom: 32),
+      child: SizedBox(
+        width: 160,
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Container(
+              height: 60,
+              width: 130,
+              decoration: BoxDecoration(
+                color: ColorApp.green,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    height: 53,
+                    width: 150,
+                    child: Center(
+                        child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 5),
+                          child: Text(
+                            "تومان",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "SM",
+                                color: Colors.white),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "17,800,000",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: "SM",
+                                    decoration: TextDecoration.lineThrough,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              "16,989,000",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "SB",
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4),
+                          child: Container(
+                            width: 25,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              color: Color(0xffD02026),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(7.5),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "%5",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontFamily: "SB"),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+                  ),
+                ),
               ),
             )
           ],
